@@ -1,0 +1,149 @@
+﻿@model FYP.Models.Posts_Tbl
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload Form</title>
+
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <!-- Default form contact -->
+    <div class="container">
+       
+            
+        <div class="row">
+                 <div class="col-lg-6 col-lg-offset-3">
+                <div class="panel panel-primary dialog-panel" style="margin-top:45px; height:350px; margin-bottom:42px;">
+                    <div class="panel-heading">
+                        <h5 class="text-center">Post Information</h5>
+                    </div>
+                    @using (Html.BeginForm("create", "Posts_Tbl", FormMethod.Post, new { enctype = "multipart/form-data"  }  ))
+                    {
+
+                        <div class="col-sm-offset-1">
+                            <!-- Default input name -->
+                            <br />
+                            <div class="mt-2">
+                               
+                                <label for="defaultFormContactMessageEx" class="grey-text">Category ID: * </label>
+                                @Html.DropDownList("categoryid", "Select category" )
+                                @Html.DropDownList("areaid", "Select area")
+
+
+                                <div style="color:red">
+                                    <b>
+                                        @ViewData["Error"]
+                                    </b>
+                                </div>
+                            </div>
+                            <br />
+
+                            <!-- Default input email -->
+                            <label for="defaultFormContactEmailEx" class="grey-text">Post Name: * </label>
+                            @*<input type="text" id="defaultFormContactEmailEx" placeholder="Title" class="form-control" required>*@
+                            @*@Html.TextBox("name", new { @class= " required" })*@
+                            <input type="text" name="name" required />
+
+                           <br />
+                            <br />
+       
+
+                            <!-- Default textarea message -->
+                           
+                                <label for="defaultFormContactMessageEx" class="grey-text">Description: *</label>
+                                @*@Html.TextArea("Description", new { @class = " required" })*@
+                                <textarea name="Description" required></textarea>
+                                @*<textarea type="text" id="defaultFormContactMessageEx" class="form-control" rows="3" placeholder="Please write some Description." required></textarea>*@
+                            
+                            @* upload file *@
+                            <div class="mt-4">
+                                <label style="margin-top:20px; float:left;">
+                                    <label for="defaultFormContactMessageEx" class="grey-text">Upload-File: </label>
+                                    <br />
+                                    <input type="file" name="files[]" id="files" accept=".png , .jpg , .gif , .tiff , .tif , .bmp , .jpeg , .eps , .sr2 , .orf , .nef , .cr2, .raw , .mp4 , .avi , .flv , .wmv , .mov"  multiple="multiple" style="margin-left:50px;"/>
+                                    <br />
+                                </label>
+                            </div>
+                          
+                            <div class="col-lg-12 col-lg-offset-3 col-xs-offset-3">
+                                <button class="btn btn-primary col-lg-2" type="submit"><b>Send</b></button>
+                            </div>
+                            
+                        </div>
+                    }
+                </div>
+        </div>
+        </div>
+        </div>
+
+            @*<div id="contact-form" class="container">
+                <div>
+                    <h1></h1>
+                    <br>
+                </div>
+                <div class="row ">
+                    <form method="post" action="/Posts_Tbl/create" new{ enctype="multipart/form-data" } class="col-md-4">
+                        <div class="form-group">
+
+                        </div>
+                <div class="form-group">
+                    <label>
+                        <span class="required">Post Name: *</span>
+                        <input type="text" class="form-control"id="name" name="pname" value="" placeholder="Title" required="required" tabindex="1" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <span class="required">Description: *</span>
+                        <textarea id="message" name="message" placeholder="Please write some Description." tabindex="5" required="required"></textarea>
+                    </label>
+                </div>*@
+
+
+
+
+            @*<div class="form-group">
+                            <label>
+
+                                <span class="required">Upload-File: *</span>
+
+                                    <input type="file" name="myfiles" id="myfiles" multiple required />
+
+                            </label>
+                        </div>
+                    <div class="form-group">
+
+                        <input type="submit" value="Create" class="btn btn-primary" name="submit" id="submit" />
+
+                    </div>
+
+                        </form>
+
+                </div>
+                    </div>*@
+
+            <!-- Default form contact -->
+
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+</body>
+</html>

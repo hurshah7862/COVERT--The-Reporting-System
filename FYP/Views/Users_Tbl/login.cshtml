@@ -1,0 +1,100 @@
+﻿
+
+
+
+@{
+    Layout = null;
+}
+@*<!DOCTYPE html>*@
+@*<html>
+<head>
+
+    <title>login</title>
+
+    
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <div class="loginbox">*@
+        
+        @*<img src="~/Content/img/orange.png" />*@
+        @*<img src="~/Content/img/last.png" class="pic" />
+        <h1>Login Here</h1>
+        <div style="color:red">
+            <b>@ViewData["login"]</b>
+        </div>
+
+        <form class="login form" action="/Users_Tbl/login" method="post" style="font-family:monospace; font-size:15px;">
+            <br />
+            <label>Username</label>
+            <br />
+            <br>
+            <label>Password</label>
+            <br />
+            <br>
+            <input type="submit" name="submit" value="Continue">
+           
+
+
+        </form>
+    </div>*@
+
+
+@*</body>
+</html>*@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Custom Theme files -->
+    <link href="~/Content/styleSignUp.css" rel="stylesheet" />
+ 
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Old+Standard+TT:400,400i,700" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'><!--web font-->
+    <!-- //web font -->
+</head>
+<body>
+    <!-- main -->
+    <div class="main main-agileits">
+        <div class="main-agilerow">
+            <div class="signup-wthreetop">
+                <h2 style="text-align:center;">Welcome to Login</h2>
+            </div>
+            <div class="contact-wthree">
+                <div style="color:red">
+                    <b> @ViewData["login"]</b>
+                </div>
+                <form action="/Users_Tbl/login" method="post">
+                    
+                    <div class="form-w3step1">
+                        <b style="color:whitesmoke">Username</b>
+                        <input type="text" name="UserName" placeholder="User Name" required>
+                        <br />
+                        <br />
+                        <b style="color:whitesmoke">Password</b>
+                        <input type="password" name="Password" placeholder="Password" required>
+                       
+                    </div>
+                   
+                    
+                    
+                    <input type="submit"  name="submit" value="SUBMIT">
+                    <br />
+                    <br />
+                    <p style="text-align:center;color:white;">Not Registered?@Html.ActionLink("REGISTER", "create", "users_Tbl")</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- //main -->
+</body>
+</html>

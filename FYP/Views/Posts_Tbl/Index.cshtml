@@ -1,0 +1,269 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<FYP.Models.Posts_Tbl>
+@using FYP.Models;
+@{
+    ViewBag.Title = "Index";
+    Category_Tbl c = new Category_Tbl();
+    Users_Tbl u = new Users_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+
+}
+<style>
+    .alpha {
+        color: red;
+        width: 500px;
+    }
+
+    .form1 {
+        color: #000000;
+        background-color: #ffa9a9;
+        font-size: 15px;
+        border: 2px;
+        border-color: blue;
+    }
+</style>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Content/JS/jquery.min.js"></script>
+<script src="~/Content/JS/bootstrap.min.js"></script>
+
+
+<div class="container">
+    <div class="panel panel-primary dialog-panel" style="margin-top:100px">
+        <div class="panel-heading">
+            <h3 class="text-center"><b>Posts</b></h3>
+        </div>
+    </div>
+
+
+
+
+
+
+   
+
+        <div class="alpha">
+
+            @using (Html.BeginForm("Index", "Posts_Tbl", FormMethod.Get))
+            {
+                <b>Search By:</b>
+                @Html.RadioButton("searchBy", "Category", true) <text> Category</text>
+                @*@Html.DropDownList("search", "Select category")*@
+                @Html.RadioButton("searchBy", "Name") <text> Name</text> <br />
+                @Html.TextBox("Search") <input type="submit" value="Search" />
+
+            }
+        </div>
+
+
+
+        <p>
+            @if (Session["id"] != null)
+            {
+                u = db.Users_Tbl.Find(Convert.ToInt32(Session["id"]));
+                if (u.Status == "Approved")
+                { 
+                <button class="success"> @Html.ActionLink("Create New", "Create")</button>
+                u = db.Users_Tbl.Find(Session["id"]);
+                if (u.RollId == 1)
+                {
+                    <button class="success"> @Html.ActionLink("Categories", "index", "category_Tbl")</button>
+
+                    }
+                }
+            }
+        </p>
+
+
+
+       
+
+            <div class="panel panel-default col-lg-3 col-lg-push-1 " style="position:absolute; left:895px; height:200px;">
+                @using (Html.BeginForm("Index", "Posts_Tbl", FormMethod.Get))
+            {
+                    <h5 class="panel-heading">
+                        <b>Search By:</b> <br />
+                        <div style="margin-top:20px;">
+                            @Html.RadioButton("searchBy", "Category", true) <text> Category</text>
+                            @*@Html.DropDownList("search", "Select category")*@
+                            @Html.RadioButton("searchBy", "Name") <text> Name</text> <br />
+                        </div>
+                    </h5>
+
+                    <div class="panel-body">
+                        <div class="input-group">
+                            @Html.TextBox("Search") <input type="submit" value="Search" style="margin-bottom:10px;" />
+                            <p>
+                                @if (Session["id"] != null)
+                                {
+                                    if (u.Status == "Approved")
+                                    {
+                                    <button class="success"> @Html.ActionLink("Create New", "Create")</button>
+                                        u = db.Users_Tbl.Find(Session["id"]);
+                                        if (u.RollId == 1)
+                                        {
+                                        <button class="success"> @Html.ActionLink("Categories", "index", "category_Tbl")</button>
+
+                                        }
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+            @if (Model.Count() <= 0)
+            {
+                <tr>
+                    <td>
+                        NO RECORDS TO SHOW
+                    </td>
+                </tr>
+            }
+            @{
+                int z = 0;
+
+            }
+            @foreach (var item in Model)
+            {
+                <div class="panel panel-default col-lg-8">
+                    @{int x = 0;
+                        z++;
+                    }
+
+
+                    <div class="panel-heading"><h2><b>@Html.DisplayFor(modelItem => item.PostName)</b></h2></div>
+                    <div id="myCarousel-@z" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <!-- Indicators -->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @{
+
+                                List<Visual_Tbl> imglist = db.Visual_Tbl.Where(i => i.PostId == item.PostId).ToList();
+                                foreach (var imgs in imglist)
+
+                                {
+                                    <div class="item @if (x==0) { <text>active</text>
+                                    x++;
+                                } ">
+                                        <div class="panel-body">
+                                            @if (imgs.Url.Contains(".png") || imgs.Url.Contains(".jpg") || imgs.Url.Contains(".tiff") || imgs.Url.Contains(".tif") || imgs.Url.Contains(".bmp") || imgs.Url.Contains(".jpeg") || imgs.Url.Contains(".gif") || imgs.Url.Contains(".eps") || imgs.Url.Contains(".sr2") || imgs.Url.Contains(".orf") || imgs.Url.Contains(".nef") || imgs.Url.Contains(".cr2") || imgs.Url.Contains(".raw"))
+                                            {
+                                                <img style="height:300px;width:300px; margin:0 auto; background:url('@Url.Content(imgs.Url)'); background-size:contain;  background-repeat:no-repeat; display: block;" />
+                                            }
+                                            @if (imgs.Url.Contains(".avi") || imgs.Url.Contains(".flv") || imgs.Url.Contains(".wmv") || imgs.Url.Contains(".mov") || imgs.Url.Contains(".mp4"))
+                                            {
+                                                <video id="video" src="@Url.Content(imgs.Url)" style=" width=720px; height=500px;" controls="true" loop="true" />
+                                            }
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel-@z" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel-@z" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+
+                        </div>
+
+
+                    </div>
+                    <div class="panel-footer">@Html.DisplayFor(modelItem => item.PostDescription)</div>
+                    <div class="panel-body"><b>Posted On:</b> @Html.DisplayFor(modelItem => item.ApprovalDate)</div>
+                    <div class="panel-footer">
+                        @if (Session["id"] != null)
+                {
+                    u = db.Users_Tbl.Find(Session["id"]);
+                    if (u.RollId == 1)
+                    {
+
+                                <h6>
+                                    @{
+                                        u = db.Users_Tbl.Find(item.UserId);
+                                    }
+
+                                    <b>Posted By:</b> @Html.DisplayFor(modelItem => u.Name)
+                                </h6>
+                                            }
+                                        }
+
+                        <h6>
+                            @{
+                                c = db.Category_Tbl.Find(item.CategoryId);
+                            }
+
+                            <b>Category:</b> @Html.DisplayFor(modelItem => c.Name)
+                        </h6>
+                    </div>
+                
+                    <div class="panel-body btn-toolbar">
+                        @if (Session["id"] != null)
+                {   
+                    u = db.Users_Tbl.Find(Session["id"]);
+                    if (u.RollId == 1 )
+                    { 
+                                @Html.ActionLink("Edit", "Edit", new { id = item.PostId }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.PostId }, new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Details", "Details", new { id = item.PostId }, new { @class = "btn btn-default" })
+                                
+                            }
+
+                            @Html.ActionLink("Report", "reportpost", new { id = item.PostId }, new { @class = "btn btn-danger" })
+                        }
+
+                        @Html.ActionLink("Comments", "comments", new { id = item.PostId }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+
+                                        
+                                }
+
+
+            
+            <div class="">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], Search = Request.QueryString["Search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true })
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

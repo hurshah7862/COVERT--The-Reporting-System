@@ -1,0 +1,82 @@
+﻿@model FYP.Models.Users_Tbl
+@using FYP.Models;
+@{
+    Roles_Tbl r = new Roles_Tbl();
+    Users_Tbl u = new Users_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+    ViewBag.Title = "Details";
+
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <div class="container">
+        <br />
+        <br />
+        <div class="panel panel-primary dialog-panel">
+            <div class="panel-heading">
+                <h4 class="text-center">User Profile</h4>
+            </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="table-active">
+                        <th scope="col">
+                            @{
+                            r = db.Roles_Tbl.Find(Model.RollId);
+                        }
+
+                        Role
+                    </th>
+                    <th scope="col">@Html.DisplayFor(model => r.RollName)</th>
+                </tr>
+            </thead>
+      
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.Name)</th>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+
+
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.Status)</th>
+                    <td>@Html.DisplayFor(model => model.Status)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.Username)</th>
+                    <td>@Html.DisplayFor(model => model.Username)</td>
+
+                </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Email)</th>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Number)</th>
+                <td>@Html.DisplayFor(model => model.Number)</td>
+
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.CNIC)</th>
+                <td>@Html.DisplayFor(model => model.CNIC)</td>
+
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.SignUpDate)</th>
+                <td>@Html.DisplayFor(model => model.SignUpDate)</td>
+
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.ApprovalDate)</th>
+                <td>@Html.DisplayFor(model => model.ApprovalDate)</td>
+
+            </tr>
+        </table>
+        <p >
+            
+            <a href=@Url.Action("Edit","Users_Tbl", new {id = Model.UserId })> <button class="success col-lg-1"> Edit  @*@Html.ActionLink("Edit", "Edit", new { id = Model.UserId })*@ </button></a>
+           
+        </p>
+        <br />
+        <br />
+        <br />
+    </div>

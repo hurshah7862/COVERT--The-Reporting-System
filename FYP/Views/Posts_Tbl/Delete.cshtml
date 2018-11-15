@@ -1,0 +1,119 @@
+﻿@model FYP.Models.Posts_Tbl
+@using FYP.Models;
+@{
+    Users_Tbl u = new Users_Tbl();
+    Category_Tbl c = new Category_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+    Posts_Tbl p = new Posts_Tbl();
+    ViewBag.Title = "Delete";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<div class="container" style="margin-top:100px;">
+   
+    <dl class="dl-horizontal">
+        <dt>
+
+            Name
+        </dt>
+
+        <dd>
+            @{
+                u = db.Users_Tbl.Find(Model.UserId);
+            }
+            @Html.DisplayFor(model => u.Name)
+        </dd>
+
+        <dt>
+            Category
+        </dt>
+
+        <dd>
+            @{
+                c = db.Category_Tbl.Find(Model.CategoryId);
+            }
+            @Html.DisplayFor(model => c.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovalDate)
+        </dd>
+
+        <dt>
+            VISUAL DATA
+        </dt>
+        <dd>
+            <div class="col-lg-1"> VISUAL DATA</div>
+
+            <div class="col-md-10">
+
+                @{
+
+                    List<Visual_Tbl> imglist = db.Visual_Tbl.Where(i => i.PostId == Model.PostId).ToList();
+                    foreach (var imgs in imglist)
+
+                    {
+                        if (imgs.Url.Contains(".png") || imgs.Url.Contains(".jpg") || imgs.Url.Contains(".tiff") || imgs.Url.Contains(".tif") || imgs.Url.Contains(".bmp") || imgs.Url.Contains(".jpeg") || imgs.Url.Contains(".gif") || imgs.Url.Contains(".eps") || imgs.Url.Contains(".sr2") || imgs.Url.Contains(".orf") || imgs.Url.Contains(".nef") || imgs.Url.Contains(".cr2") || imgs.Url.Contains(".raw"))
+                        {
+                            <img src="@Url.Content(imgs.Url)" style="height:300px;width:175px" />
+                        }
+                        @*<source src="@Url.Content(imgs.Url)" type="video/mp4">*@
+                if (imgs.Url.Contains(".avi") || imgs.Url.Contains(".flv") || imgs.Url.Contains(".wmv") || imgs.Url.Contains(".mov") || imgs.Url.Contains(".mp4"))
+                {
+                    <video id="video" src="@Url.Content(imgs.Url)" controls="true" width="300" height="150" loop="true" />
+                    }
+                }
+
+                }
+
+            </div>
+
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

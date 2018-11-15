@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FYP.Models.Category_Tbl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<div class="container">
+    <div class="panel panel-primary dialog-panel" style="margin-top:100px">
+        <div class="panel-heading">
+            <h5 class="text-center" style="font-size:20px;">Categories</h5>
+        </div>
+    </div>
+    <div style="color:lawngreen">
+        <b>@ViewData["ED"]</b>
+    </div>
+    <table class="table table-striped table-bordered  table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>ACTIONS</th>
+        </tr>
+        @if (Model.Count() <= 0)
+        {
+            <tr>
+                <td>
+                    <text>No Categories Yet</text>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                    
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    
+    <form method="post" action="/category_Tbl/create" style="margin-bottom:10px;">
+        <div style="color:deepskyblue">
+            <b>@ViewData["Error"]</b>
+        </div>
+        <br />
+        <input type="text" name="name" placeholder="Category"  required/>
+        
+        <input type="submit" name="Submit" value="Add Category" />
+    </form>
+</div>

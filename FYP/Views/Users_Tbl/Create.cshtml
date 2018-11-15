@@ -1,0 +1,213 @@
+﻿
+@using FYP.Models;
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Create";
+    Users_Tbl u = new Users_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+}
+
+
+
+@*<!DOCTYPE html>
+<html>
+<head>
+    <title>signup form</title>
+    
+    <link href="~/Content/signup.css" rel="stylesheet" />
+    <link href="~/Content/styleSignUp.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="signupbox" style="margin-bottom:120px; margin-top:270px; height:800px;">*@
+        <!--<img src="smiley.jpg" class="pic1">-->
+        @*<h1>Register</h1>
+        <form class="register-form" action="/users_Tbl/create" method="post">*@
+           @*
+
+
+            <p>Name</p>
+            
+            <p>Username</p>
+            
+            <p>CNIC</p>
+            
+            <p>Email</p>
+            
+            <p>Number</p>
+            
+            <p>Password</p>
+            
+            <p>Confirm Password</p>
+            
+
+            <input type="submit" name="submit" value="Signup">
+            <input type="reset" name="reset" value="RESET" class="buttonReset">
+
+
+
+            
+        </form>*@
+
+
+
+    @*</div>
+
+</body>
+
+
+</html>*@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+   
+    <meta name="keywords" content="Client Signup Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Custom Theme files -->
+    <link href="~/Content/styleSignUp.css" rel="stylesheet" />
+
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+    <link href="//fonts.googleapis.com/css?family=Old+Standard+TT:400,400i,700" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'><!--web font-->
+    <!-- //web font -->
+</head>
+<body>
+    <!-- main -->
+    <div class="main main-agileits">
+
+        <div class="main-agilerow">
+            <div class="signup-wthreetop">
+                <h2 style="text-align:center;">Welcome to Registration</h2>
+
+            </div>
+            <div class="contact-wthree">
+                <form method="post" action="/users_Tbl/create" onsubmit="return myFunction()">
+                    <div style="color:red">
+                        <b>
+                            @ViewData["Error"]
+                        </b>
+                    </div>
+
+
+
+                    <div class="form-w3step1">
+                        <div style="margin-bottom:10px;">
+                            @{
+                                if (Session["id"] != null)
+                                {
+                                    u = db.Users_Tbl.Find(Session["id"]);
+                                    if (u.RollId == 1)
+                                    {
+                                        @Html.DropDownList("rollid", "Select Role")
+
+                                        @Html.DropDownList("desid", "Select Designation")
+
+                                        @Html.DropDownList("Status", new List<SelectListItem>
+                        {
+                        new SelectListItem{Text="Approved" },
+                        new SelectListItem { Text="Pending" }
+                        }, "Select Status");
+
+
+                                    }
+                                }
+                            }
+                        </div>
+
+                        @Html.DropDownList("areaid", "Select Area")
+
+                        <br />
+                        <b style="color:whitesmoke">Name</b>
+                        <input type="text" name="name" placeholder="Your Name" required pattern="[A-Za-z\s]+" title="Name should only be alphabets.">
+                        <b style="color:whitesmoke">Email</b>
+                        <input type="email" name="email" placeholder="Your Email" required class="email agileits-btm">
+                        <br />
+                        <br />
+
+                        <b style="color:whitesmoke">Username</b>
+                        <input type="text" name="username" placeholder="user name" required pattern="(?=.*\d)(?=.*[A-Za-z]).{5,12}" title="Username should be 5 to 12 characters and should contain one upper or lower case letter and one number atleast">
+                        <b style="color:whitesmoke">Password</b>
+                        <input type="password" name="password" placeholder="Password" required pattern=".{8,12}" title="Password should be 8 to 12 characters">
+                        <b style="color:whitesmoke">Confirm Password</b>
+                        <input type="password" name="confirmpassword" class="agileits-btm" placeholder="Confirm Password" required pattern=".{8,12}" title="Password should be 8 to 12 characters">
+                        <br />
+                        <br />
+
+                        <b style="color:whitesmoke">Mobile Number</b>
+                        <input name="number" id="number" type="text" data-inputmask="'mask': '0399-99999999'" required min="12" maxlength="12" placeholder="Mobile number" pattern=".{12,12}">
+                        <b style="color:whitesmoke">CNIC</b>
+                        <input type="text" name="cnic" id="cnic" data-inputmask="'mask': '99999-9999999-9'" required placeholder="XXXXX-XXXXXXX-X" pattern=".{15,15}">
+
+                    </div>
+
+                    <input type="submit" value="SUBMIT">
+                    <br />
+                    <br />
+                    <input type="reset" name="reset" value="RESET" class="buttonReset">
+                    <br />
+                    <br />
+                    <div class="reg">
+                        <p style="color:white;text-align:center;">Already Registered?@Html.ActionLink("Login", "login", "users_Tbl")</p>
+                        <p style="color:white;text-align:center;">Return to Home @Html.ActionLink("Home", "Index", "Home")</p>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- //main -->
+    <!-- copyright -->
+   
+    <script>
+    <!-- //copyright -->
+    $(":input").inputmask();
+
+    </script>
+    @* cnic and phone  umber lenghth *@
+    @*<script>
+function myFunction() {
+
+
+    var number = document.getElementById("number").value;
+    var cnic = document.getElementById("cnic").value;
+    submitOK = "true";
+
+    if (number.length <= 12) {
+        alert("The number may have no more than 12 characters");
+        submitOK = "false";
+    }
+    if (cnic.length < 15) {
+        alert("The cnic may have no more than 13 characters");
+        submitOK = "false";
+    }
+
+    if (submitOK == "false") {
+        return false;
+    }
+}
+    </script>*@
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+</body>
+
+</html>
+
+
+
+
+
+

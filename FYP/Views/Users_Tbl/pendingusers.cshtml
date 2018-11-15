@@ -1,0 +1,79 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<FYP.Models.Users_Tbl>
+@{
+    ViewBag.Title = "pendingusers";
+}
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<div class="container">
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="panel panel-primary dialog-panel">
+        <div class="panel-heading">
+            <h3 class="text-center"><b>Pending Users</b></h3>
+        </div>
+    </div>
+    <div style="color:lawngreen">
+        <b>@ViewData["Error"]</b>
+    </div>
+    <table class="table table-striped table-bordered  table-hover table-responsive">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.First().Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Email)
+            </th>
+
+            <th>ACTIONS</th>
+        </tr>
+
+
+        @if (Model.Count() <= 0)
+        {
+            <tr>
+                <td>
+                    NO RECORDS TO SHOW
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Approve", "approve", new { id = item.UserId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                    @Html.ActionLink("Reject", "Delete", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }, new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true }))*@<br />
+<br />
+<br />
+    <br />
+
+</div>

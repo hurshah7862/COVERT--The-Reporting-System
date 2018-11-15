@@ -1,0 +1,105 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using FYP.Models;
+@model IPagedList<FYP.Models.Users_Tbl>    
+
+@{
+    FYPBDEntities db = new FYPBDEntities();
+    Users_Tbl u = new Users_Tbl();
+    ViewBag.Title = "Index";
+}
+
+<!doctype html>
+<html>
+<head>
+    <title>table</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+   
+    @*<link href="~/Content/style.css" rel="stylesheet" />*@
+    
+    <!-- Latest compiled and minified CSS -->
+   
+    
+</head>
+
+<body >
+
+    <div class="container">
+        <div class="col-lg-offset-8 style="margin-top:100px;">
+            <button class="success" style="margin-bottom:10px; margin-top:10px;">@Html.ActionLink("Add New User", "Create")</button>
+            <div style="margin-bottom:10px;">
+                @using (Html.BeginForm("Index", "Users_Tbl", FormMethod.Get))
+            {
+                    <b>Search By Name:</b>
+                    @Html.TextBox("Search") <input type="submit" value="Search" />
+                }
+            </div>
+        </div>
+        <div class="panel panel-primary dialog-panel" >
+            <div class="panel-heading">
+                <h3 class="text-center"><b>USERS</b></h3>
+            </div>
+        </div>
+        <div style="color:lawngreen"><b>@ViewData["Error"]</b></div>
+        <table class="table table-striped table-bordered  table-hover">
+            <thead>
+                <tr>
+                    
+                    <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Username)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @if (Model.Count() <= 0)
+                {
+<tr>
+    <td>
+        NO RECORDS TO SHOW
+    </td>
+</tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, Search = Request.QueryString["Search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true })
+
+
+    </div>
+    <script src="~/Content/JS/jquery.min.js"></script>
+    <script src="~/Content/JS/bootstrap.min.js"></script>
+    <script src="~/Content/JS/jquery.min.js"></script>
+    <script src="~/Content/JS/bootstrap.min.js"></script>
+
+</body>
+
+
+</html>

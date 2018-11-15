@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FYPBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area_Tbl">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Category_Tbl">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Comment_Tbl">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Date" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Contactus_Tbl">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="Message" Type="varchar(max)" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PostId" Type="int" />
+        </EntityType>
+        <EntityType Name="Designation_Tbl">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DesignationName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Posts_Tbl">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="PostName" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar(max)" />
+          <Property Name="PostDate" Type="varchar(max)" />
+          <Property Name="PostDescription" Type="varchar(max)" />
+          <Property Name="ApprovalDate" Type="varchar(max)" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles_Tbl">
+          <Key>
+            <PropertyRef Name="RollId" />
+          </Key>
+          <Property Name="RollId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RollName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Users_Tbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RollId" Type="int" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar(max)" />
+          <Property Name="Username" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="Number" Type="varchar(max)" />
+          <Property Name="CNIC" Type="varchar(max)" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="SignUpDate" Type="varchar(max)" />
+          <Property Name="ApprovalDate" Type="varchar(max)" />
+          <Property Name="DesignationId" Type="int" />
+          <Property Name="AreaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Visual_Tbl">
+          <Key>
+            <PropertyRef Name="VisualId" />
+          </Key>
+          <Property Name="VisualId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="200" />
+          <Property Name="PostId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <Association Name="FK_CategoryPost">
+          <End Role="Category_Tbl" Type="Self.Category_Tbl" Multiplicity="0..1" />
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Tbl">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Tbl_Posts_Tbl">
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="0..1" />
+          <End Role="Comment_Tbl" Type="Self.Comment_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Comment_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contactus_Tbl_Posts_Tbl">
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="0..1" />
+          <End Role="Contactus_Tbl" Type="Self.Contactus_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Contactus_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contactus_Tbl_Users_Tbl">
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="0..1" />
+          <End Role="Contactus_Tbl" Type="Self.Contactus_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Contactus_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Tbl_Area_Tbl">
+          <End Role="Area_Tbl" Type="Self.Area_Tbl" Multiplicity="0..1" />
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Tbl_Users_Tbl">
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="0..1" />
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolesUsers">
+          <End Role="Roles_Tbl" Type="Self.Roles_Tbl" Multiplicity="0..1" />
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Tbl">
+              <PropertyRef Name="RollId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="RollId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Tbl_Area_Tbl">
+          <End Role="Area_Tbl" Type="Self.Area_Tbl" Multiplicity="0..1" />
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Tbl_Designation_Tbl">
+          <End Role="Designation_Tbl" Type="Self.Designation_Tbl" Multiplicity="0..1" />
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation_Tbl">
+              <PropertyRef Name="DesignationId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersComment">
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="0..1" />
+          <End Role="Comment_Tbl" Type="Self.Comment_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visual_Tbl_Posts_Tbl">
+          <End Role="Posts_Tbl" Type="Self.Posts_Tbl" Multiplicity="0..1" />
+          <End Role="Visual_Tbl" Type="Self.Visual_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Visual_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visual_Tbl_Users_Tbl">
+          <End Role="Users_Tbl" Type="Self.Users_Tbl" Multiplicity="0..1" />
+          <End Role="Visual_Tbl" Type="Self.Visual_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Visual_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FYPBDModelStoreContainer">
+          <EntitySet Name="Area_Tbl" EntityType="Self.Area_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category_Tbl" EntityType="Self.Category_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment_Tbl" EntityType="Self.Comment_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contactus_Tbl" EntityType="Self.Contactus_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designation_Tbl" EntityType="Self.Designation_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts_Tbl" EntityType="Self.Posts_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles_Tbl" EntityType="Self.Roles_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users_Tbl" EntityType="Self.Users_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visual_Tbl" EntityType="Self.Visual_Tbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CategoryPost" Association="Self.FK_CategoryPost">
+            <End Role="Category_Tbl" EntitySet="Category_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Tbl_Posts_Tbl" Association="Self.FK_Comment_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Comment_Tbl" EntitySet="Comment_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contactus_Tbl_Posts_Tbl" Association="Self.FK_Contactus_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Contactus_Tbl" EntitySet="Contactus_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contactus_Tbl_Users_Tbl" Association="Self.FK_Contactus_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Contactus_Tbl" EntitySet="Contactus_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Tbl_Area_Tbl" Association="Self.FK_Posts_Tbl_Area_Tbl">
+            <End Role="Area_Tbl" EntitySet="Area_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Tbl_Users_Tbl" Association="Self.FK_Posts_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolesUsers" Association="Self.FK_RolesUsers">
+            <End Role="Roles_Tbl" EntitySet="Roles_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Tbl_Area_Tbl" Association="Self.FK_Users_Tbl_Area_Tbl">
+            <End Role="Area_Tbl" EntitySet="Area_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Tbl_Designation_Tbl" Association="Self.FK_Users_Tbl_Designation_Tbl">
+            <End Role="Designation_Tbl" EntitySet="Designation_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersComment" Association="Self.FK_UsersComment">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Comment_Tbl" EntitySet="Comment_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visual_Tbl_Posts_Tbl" Association="Self.FK_Visual_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Visual_Tbl" EntitySet="Visual_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visual_Tbl_Users_Tbl" Association="Self.FK_Visual_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Visual_Tbl" EntitySet="Visual_Tbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FYPBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category_Tbl">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK__Posts_Tbl__Categ__47DBAE45" FromRole="Category_Tbl" ToRole="Posts_Tbl" />
+        </EntityType>
+        <EntityType Name="Comment_Tbl">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK__Comment_T__UserI__4D94879B" FromRole="Comment_Tbl" ToRole="Users_Tbl" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK_Comment_Tbl_Posts_Tbl" FromRole="Comment_Tbl" ToRole="Posts_Tbl" />
+        </EntityType>
+        <EntityType Name="Contactus_Tbl">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK_Contactus_Tbl_Posts_Tbl" FromRole="Contactus_Tbl" ToRole="Posts_Tbl" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK_Contactus_Tbl_Users_Tbl" FromRole="Contactus_Tbl" ToRole="Users_Tbl" />
+        </EntityType>
+        <EntityType Name="Roles_Tbl">
+          <Key>
+            <PropertyRef Name="RollId" />
+          </Key>
+          <Property Name="RollId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RollName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK__Users_Tbl__RollI__4AB81AF0" FromRole="Roles_Tbl" ToRole="Users_Tbl" />
+        </EntityType>
+        <EntityType Name="Users_Tbl">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RollId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CNIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SignUpDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovalDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Roles_Tbl" Relationship="FYPBDModel.FK__Users_Tbl__RollI__4AB81AF0" FromRole="Users_Tbl" ToRole="Roles_Tbl" />
+          <NavigationProperty Name="Comment_Tbl" Relationship="FYPBDModel.FK__Comment_T__UserI__4D94879B" FromRole="Users_Tbl" ToRole="Comment_Tbl" />
+          <NavigationProperty Name="Visual_Tbl" Relationship="FYPBDModel.FK_Visual_Tbl_Users_Tbl" FromRole="Users_Tbl" ToRole="Visual_Tbl" />
+          <NavigationProperty Name="Contactus_Tbl" Relationship="FYPBDModel.FK_Contactus_Tbl_Users_Tbl" FromRole="Users_Tbl" ToRole="Contactus_Tbl" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK_Posts_Tbl_Users_Tbl" FromRole="Users_Tbl" ToRole="Posts_Tbl" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <NavigationProperty Name="Area_Tbl" Relationship="FYPBDModel.FK_Users_Tbl_Area_Tbl" FromRole="Users_Tbl" ToRole="Area_Tbl" />
+          <NavigationProperty Name="Designation_Tbl" Relationship="FYPBDModel.FK_Users_Tbl_Designation_Tbl" FromRole="Users_Tbl" ToRole="Designation_Tbl" />
+        </EntityType>
+        <EntityContainer Name="FYPBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category_Tbl" EntityType="Self.Category_Tbl" />
+          <EntitySet Name="Comment_Tbl" EntityType="Self.Comment_Tbl" />
+          <EntitySet Name="Contactus_Tbl" EntityType="Self.Contactus_Tbl" />
+          <EntitySet Name="Roles_Tbl" EntityType="Self.Roles_Tbl" />
+          <EntitySet Name="Users_Tbl" EntityType="Self.Users_Tbl" />
+          <EntitySet Name="Visual_Tbl" EntityType="FYPBDModel.Visual_Tbl" />
+          <EntitySet Name="Posts_Tbl" EntityType="FYPBDModel.Posts_Tbl" />
+          <AssociationSet Name="FK__Posts_Tbl__Categ__47DBAE45" Association="FYPBDModel.FK__Posts_Tbl__Categ__47DBAE45">
+            <End Role="Category_Tbl" EntitySet="Category_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users_Tbl__RollI__4AB81AF0" Association="FYPBDModel.FK__Users_Tbl__RollI__4AB81AF0">
+            <End Role="Roles_Tbl" EntitySet="Roles_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment_T__UserI__4D94879B" Association="FYPBDModel.FK__Comment_T__UserI__4D94879B">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Comment_Tbl" EntitySet="Comment_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visual_Tbl_Posts_Tbl" Association="FYPBDModel.FK_Visual_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Visual_Tbl" EntitySet="Visual_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visual_Tbl_Users_Tbl" Association="FYPBDModel.FK_Visual_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Visual_Tbl" EntitySet="Visual_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contactus_Tbl_Posts_Tbl" Association="FYPBDModel.FK_Contactus_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Contactus_Tbl" EntitySet="Contactus_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contactus_Tbl_Users_Tbl" Association="FYPBDModel.FK_Contactus_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Contactus_Tbl" EntitySet="Contactus_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Tbl_Posts_Tbl" Association="FYPBDModel.FK_Comment_Tbl_Posts_Tbl">
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+            <End Role="Comment_Tbl" EntitySet="Comment_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Tbl_Users_Tbl" Association="FYPBDModel.FK_Posts_Tbl_Users_Tbl">
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <EntitySet Name="Area_Tbl" EntityType="FYPBDModel.Area_Tbl" />
+          <EntitySet Name="Designation_Tbl" EntityType="FYPBDModel.Designation_Tbl" />
+          <AssociationSet Name="FK_Posts_Tbl_Area_Tbl" Association="FYPBDModel.FK_Posts_Tbl_Area_Tbl">
+            <End Role="Area_Tbl" EntitySet="Area_Tbl" />
+            <End Role="Posts_Tbl" EntitySet="Posts_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Tbl_Area_Tbl" Association="FYPBDModel.FK_Users_Tbl_Area_Tbl">
+            <End Role="Area_Tbl" EntitySet="Area_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Tbl_Designation_Tbl" Association="FYPBDModel.FK_Users_Tbl_Designation_Tbl">
+            <End Role="Designation_Tbl" EntitySet="Designation_Tbl" />
+            <End Role="Users_Tbl" EntitySet="Users_Tbl" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Visual_Tbl">
+          <Key>
+            <PropertyRef Name="VisualId" />
+          </Key>
+          <Property Name="VisualId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PostId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK_Visual_Tbl_Posts_Tbl" FromRole="Visual_Tbl" ToRole="Posts_Tbl" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK_Visual_Tbl_Users_Tbl" FromRole="Visual_Tbl" ToRole="Users_Tbl" />
+        </EntityType>
+        <EntityType Name="Posts_Tbl">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="PostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovalDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category_Tbl" Relationship="FYPBDModel.FK__Posts_Tbl__Categ__47DBAE45" FromRole="Posts_Tbl" ToRole="Category_Tbl" />
+          <NavigationProperty Name="Visual_Tbl" Relationship="FYPBDModel.FK_Visual_Tbl_Posts_Tbl" FromRole="Posts_Tbl" ToRole="Visual_Tbl" />
+          <NavigationProperty Name="Contactus_Tbl" Relationship="FYPBDModel.FK_Contactus_Tbl_Posts_Tbl" FromRole="Posts_Tbl" ToRole="Contactus_Tbl" />
+          <NavigationProperty Name="Comment_Tbl" Relationship="FYPBDModel.FK_Comment_Tbl_Posts_Tbl" FromRole="Posts_Tbl" ToRole="Comment_Tbl" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK_Posts_Tbl_Users_Tbl" FromRole="Posts_Tbl" ToRole="Users_Tbl" />
+          <Property Name="AreaId" Type="Int32" />
+          <NavigationProperty Name="Area_Tbl" Relationship="FYPBDModel.FK_Posts_Tbl_Area_Tbl" FromRole="Posts_Tbl" ToRole="Area_Tbl" />
+        </EntityType>
+        <Association Name="FK__Posts_Tbl__Categ__47DBAE45">
+          <End Type="FYPBDModel.Category_Tbl" Role="Category_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Tbl">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users_Tbl__RollI__4AB81AF0">
+          <End Type="FYPBDModel.Roles_Tbl" Role="Roles_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_Tbl">
+              <PropertyRef Name="RollId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="RollId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment_T__UserI__4D94879B">
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Comment_Tbl" Role="Comment_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visual_Tbl_Posts_Tbl">
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Visual_Tbl" Role="Visual_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Visual_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visual_Tbl_Users_Tbl">
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Visual_Tbl" Role="Visual_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Visual_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contactus_Tbl_Posts_Tbl">
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Contactus_Tbl" Role="Contactus_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Contactus_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contactus_Tbl_Users_Tbl">
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Contactus_Tbl" Role="Contactus_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Contactus_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Tbl_Posts_Tbl">
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Comment_Tbl" Role="Comment_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts_Tbl">
+              <PropertyRef Name="PostId" />
+            </Principal>
+            <Dependent Role="Comment_Tbl">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Tbl_Users_Tbl">
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users_Tbl">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Area_Tbl">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Posts_Tbl" Relationship="FYPBDModel.FK_Posts_Tbl_Area_Tbl" FromRole="Area_Tbl" ToRole="Posts_Tbl" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK_Users_Tbl_Area_Tbl" FromRole="Area_Tbl" ToRole="Users_Tbl" />
+        </EntityType>
+        <EntityType Name="Designation_Tbl">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users_Tbl" Relationship="FYPBDModel.FK_Users_Tbl_Designation_Tbl" FromRole="Designation_Tbl" ToRole="Users_Tbl" />
+        </EntityType>
+        <Association Name="FK_Posts_Tbl_Area_Tbl">
+          <End Type="FYPBDModel.Area_Tbl" Role="Area_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Posts_Tbl" Role="Posts_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="Posts_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Tbl_Area_Tbl">
+          <End Type="FYPBDModel.Area_Tbl" Role="Area_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Tbl_Designation_Tbl">
+          <End Type="FYPBDModel.Designation_Tbl" Role="Designation_Tbl" Multiplicity="0..1" />
+          <End Type="FYPBDModel.Users_Tbl" Role="Users_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation_Tbl">
+              <PropertyRef Name="DesignationId" />
+            </Principal>
+            <Dependent Role="Users_Tbl">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FYPBDModelStoreContainer" CdmEntityContainer="FYPBDEntities">
+          <EntitySetMapping Name="Category_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Category_Tbl">
+              <MappingFragment StoreEntitySet="Category_Tbl">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Comment_Tbl">
+              <MappingFragment StoreEntitySet="Comment_Tbl">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contactus_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Contactus_Tbl">
+              <MappingFragment StoreEntitySet="Contactus_Tbl">
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Roles_Tbl">
+              <MappingFragment StoreEntitySet="Roles_Tbl">
+                <ScalarProperty Name="RollId" ColumnName="RollId" />
+                <ScalarProperty Name="RollName" ColumnName="RollName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Users_Tbl">
+              <MappingFragment StoreEntitySet="Users_Tbl">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RollId" ColumnName="RollId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SignUpDate" ColumnName="SignUpDate" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visual_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Visual_Tbl">
+              <MappingFragment StoreEntitySet="Visual_Tbl">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="VisualId" ColumnName="VisualId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Posts_Tbl">
+              <MappingFragment StoreEntitySet="Posts_Tbl">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="PostDescription" ColumnName="PostDescription" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Area_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Area_Tbl">
+              <MappingFragment StoreEntitySet="Area_Tbl">
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designation_Tbl">
+            <EntityTypeMapping TypeName="FYPBDModel.Designation_Tbl">
+              <MappingFragment StoreEntitySet="Designation_Tbl">
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

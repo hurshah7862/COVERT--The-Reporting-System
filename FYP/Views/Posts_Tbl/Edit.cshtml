@@ -1,0 +1,93 @@
+﻿@model FYP.Models.Posts_Tbl
+@using FYP.Models;
+@{
+    Posts_Tbl p = new Posts_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+    ViewBag.Title = "Edit";
+}
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div class="container" style="margin-top:100px;">
+    @using (Html.BeginForm("Edit","Posts_Tbl",FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+            
+                    @Html.HiddenFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                   
+
+            <div class="form-group">
+               Title
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PostName, new { htmlAttributes = new { @class = "form-control required" } })
+                    @Html.ValidationMessageFor(model => model.PostName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+               Description
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PostDescription, new { htmlAttributes = new { @class = "form-control required" } })
+                    @Html.ValidationMessageFor(model => model.PostDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-lg-1"> VISUAL DATA</div>
+
+                <div class="col-md-10">
+                   
+                            @{
+
+                                List<Visual_Tbl> imglist = db.Visual_Tbl.Where(i => i.PostId == Model.PostId).ToList();
+                                foreach (var imgs in imglist)
+
+                                {
+                                    if (imgs.Url.Contains(".png") || imgs.Url.Contains(".jpg") || imgs.Url.Contains(".tiff") || imgs.Url.Contains(".tif") || imgs.Url.Contains(".bmp") || imgs.Url.Contains(".jpeg") || imgs.Url.Contains(".gif") || imgs.Url.Contains(".eps") || imgs.Url.Contains(".sr2") || imgs.Url.Contains(".orf") || imgs.Url.Contains(".nef") || imgs.Url.Contains(".cr2") || imgs.Url.Contains(".raw"))
+                                    {
+                                        <img src="@Url.Content(imgs.Url)" style="height:300px;width:175px" />
+                                        @Html.ActionLink("Remove","div", new { id=imgs.VisualId, pid=Model.PostId })
+                                    }
+                                    
+                                    if (imgs.Url.Contains(".avi") || imgs.Url.Contains(".flv") || imgs.Url.Contains(".wmv") || imgs.Url.Contains(".mov") || imgs.Url.Contains(".mp4"))
+                                    {
+                                        <video id="video" src="@Url.Content(imgs.Url)" controls="true" width="300" height="150" loop="true" ></video>
+                                       <div> @Html.ActionLink("Remove", "div", new { id = imgs.VisualId,  pid = Model.PostId })</div>
+                                    }
+                                }
+                                <div style="color:lawngreen">
+                                    <b>@ViewData["Error"]</b>
+                                </div>
+
+                            }
+
+                </div>
+                <div class="text-center mt-4">
+                    <label>
+                        <label for="defaultFormContactMessageEx" class="grey-text">Upload-File: * </label>
+                        <br />
+                        <input type="file" name="files[]" id="files"  multiple="multiple" />
+
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+                        }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

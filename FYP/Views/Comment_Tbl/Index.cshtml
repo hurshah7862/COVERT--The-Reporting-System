@@ -1,0 +1,112 @@
+﻿@model IEnumerable<FYP.Models.Comment_Tbl>
+@using FYP.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Users_Tbl u = new Users_Tbl();
+    FYPBDEntities db = new FYPBDEntities();
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="row">
+    <section id="comments">
+        <div class="container col-lg-6 col-lg-offset-3">
+            <div class="panel panel-primary dialog-panel" style="margin-top:100px">
+                <div class="panel-heading">
+                    <h5 style="font-size:25px;" class="text-center">Comments</h5>
+                </div>
+            </div>
+            <table class="table table-striped table-bordered  table-hover">
+
+                @if (Model.Count() <= 0)
+            {
+                    <tr>
+                        <td>
+                            <text>No Comments for current post</text>
+                        </td>
+                    </tr>
+                }
+                <div style="color:lawngreen">
+                    <b>@ViewData["ED"]</b>
+                </div>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        @{
+                            u = db.Users_Tbl.Find(item.UserId);
+
+                        }
+
+
+                        <td>
+                            <b>  @Html.DisplayFor(modelItem => u.Name) </b><br />
+                            @Html.DisplayFor(modelItem => item.Name) <br />
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @{
+                                if (Session["id"] != null)
+                                {
+                                    u = db.Users_Tbl.Find(Session["id"]);
+                                    if (u.RollId == 1 || u.UserId == item.UserId)
+                                    {
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.CommentId }) <text>|</text>
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.CommentId })
+                                    }
+                                }
+                            }
+                        </td>
+                    </tr>
+
+                                }
+
+
+            </table>
+            <div style="color:deepskyblue">
+                <b> @ViewData["Error"]</b>
+            </div>
+
+
+            @{
+                if (Session["id"] != null)
+                {
+                    u = db.Users_Tbl.Find(Convert.ToInt32(Session["id"]));
+                    if (u.Status == "Approved")
+                    {
+                        
+
+                        <form action="/Comment_Tbl/Create" method="post">
+
+                            <div class="form-group">
+                                <textarea class="form-control comments" name="Comment" required></textarea>
+                                <br />
+                                <input type="submit" value="comment" />
+                            </div>
+                        </form>
+
+                        <br />
+
+                    }
+                }
+
+            }
+
+        </div>
+
+
+
+    </section>
+</div>
+<style>
+.comments{
+    max-height:50px;
+}
+</style>
+
+
+
+
+
+

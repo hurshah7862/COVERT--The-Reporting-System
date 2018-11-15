@@ -1,0 +1,105 @@
+body {
+    /*margin:0;
+	padding:0;
+	background: url('sun.jpg');
+	background-position: center;
+	background-size: cover;
+	font-family: sana-serif;	*/
+    /*background-image: url('img/magazine-unlock-05-2.3.899-_0705319055f24e0793b46fd04126e80d.jpg');*/
+    /*background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('img/sun.jpg');*/
+    background-image: url('img/comp_keyboard_gs.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: right top;
+    background-attachment: fixed;
+}
+.loginbox{
+    margin-top:100px;
+	width:400px;
+	height: 420px;
+	background: #ededed;
+	color:black;
+	position: absolute;
+	box-sizing: border-box;
+	padding: 80px 30px;
+    left:calc(50% - 200px);
+}
+.pic{
+	width:150px;
+	height:75px;
+	border-radius:50%;
+	position:absolute;
+	top:-36px;
+	left:calc(50% - 79px);
+	
+	
+}
+h1{
+	margin:0;
+	padding:0 0 20px;
+	text-align:center;
+	font-size: 22px;
+	
+}
+.loginbox p{
+	
+	margin:0;
+	padding:0;
+	
+	
+}
+.loginbox input{
+	width:100%;
+	margin-bottom:20px;	
+}
+    .loginbox input[type="text"], input[type="password"] {
+        font-family:monospace;  
+        border: 1px solid black;
+        background: transparent;
+        outline: none;
+        height: 30px;
+        color: black;
+        font-size: 16px;
+        text-indent: 11px;
+    }
+
+
+    .signupbox input[type="text"]:focus{
+      border: 2px solid #717a73;
+ 
+}
+    .signupbox input[type="password"]:focus{
+      border: 2px solid #717a73;
+ 
+}
+
+.loginbox input[type="submit"]{
+border:none;
+outline:none;
+hright:40px;
+background:#fb2525;
+color:#fff;
+font-size:18px;
+border-radius: 20px;	
+	
+}
+.loginbox input[type="submit"]:hover{
+	
+	cursor:pointer;
+	background:#ffc107;
+	color:#000;
+	
+}
+.form.message{
+margin: 15px 0 0;
+color:aliceblue;
+	
+}
+a:hover {
+	color: red;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+
+

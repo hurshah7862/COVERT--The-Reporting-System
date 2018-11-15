@@ -1,0 +1,42 @@
+﻿@using FYP.Models;
+
+@{
+    FYPBDEntities db = new FYPBDEntities();
+    Users_Tbl u = new Users_Tbl();
+}
+  <!-- Team Section -->
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<section id="showcase">
+    <div class="container">
+        <h1><span class="highlight">C</span> O V E R T</h1>
+        <h2>The Anonymous Reporting System</h2>
+    </div>
+</section>
+<section id="newsletter">
+    <div class="container">
+        <h1>Subscribe to our newsletter</h1>
+        <form action="/Contactus_Tbl/newsletter" method="post">
+            <input type="email" placeholder="Enter Email" name="emailsss" required>
+            <button type="submit" class="button_1"> Subscribe</button>
+        </form>
+    </div>
+</section>
+@*<section id="boxes">
+    <div class="container">
+        <div class="box">
+            <img src="img/a.jpg" />
+            <h3>HTML5 Markup</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1501s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+        <div class="box">
+            <img src="img/b.jpg" />
+            <h3>CSS3 Styling</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+        <div class="box">
+            <img src="img/event design.jpg" />
+            <h3>Graphic Designing</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+    </div>
+</section>*@

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="44c61eda87be497ea62d7740663d42c3" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="FYPBDModel.Category_Tbl" Width="1.5" PointX="1.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Comment_Tbl" Width="1.5" PointX="4.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Contactus_Tbl" Width="1.5" PointX="0.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Roles_Tbl" Width="1.5" PointX="8.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Users_Tbl" Width="1.5" PointX="6.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Visual_Tbl" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FYPBDModel.Posts_Tbl" Width="1.5" PointX="2.5" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="FYPBDModel.FK__Posts_Tbl__Categ__47DBAE45" />
+        <AssociationConnector Association="FYPBDModel.FK__Users_Tbl__RollI__4AB81AF0" />
+        <AssociationConnector Association="FYPBDModel.FK__Comment_T__UserI__4D94879B" />
+        <AssociationConnector Association="FYPBDModel.FK_Visual_Tbl_Posts_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Visual_Tbl_Users_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Contactus_Tbl_Posts_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Contactus_Tbl_Users_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Comment_Tbl_Posts_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Posts_Tbl_Users_Tbl" />
+        <EntityTypeShape EntityType="FYPBDModel.Area_Tbl" Width="1.5" PointX="4.375" PointY="5.25" />
+        <EntityTypeShape EntityType="FYPBDModel.Designation_Tbl" Width="1.5" PointX="8.875" PointY="4.5" />
+        <AssociationConnector Association="FYPBDModel.FK_Posts_Tbl_Area_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Users_Tbl_Area_Tbl" />
+        <AssociationConnector Association="FYPBDModel.FK_Users_Tbl_Designation_Tbl" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
